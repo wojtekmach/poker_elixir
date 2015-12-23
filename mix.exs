@@ -10,7 +10,7 @@ defmodule Poker.Mixfile do
      deps: deps,
      docs: fn ->
        {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
-       [source_ref: ref, readme: "README.md", extras: ["README.md"], main: "readme"]
+       [source_ref: ref, readme: "README.md", main: "Poker"]
      end,
      description: "An Elixir library to work with Poker hands.",
      package: package,
