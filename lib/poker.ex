@@ -203,14 +203,7 @@ defmodule Poker do
   defp card_value(:Q), do: 12
   defp card_value(:J), do: 11
   defp card_value(:T), do: 10
-  defp card_value(9),  do: 9
-  defp card_value(8),  do: 8
-  defp card_value(7),  do: 7
-  defp card_value(6),  do: 6
-  defp card_value(5),  do: 5
-  defp card_value(4),  do: 4
-  defp card_value(3),  do: 3
-  defp card_value(2),  do: 2
+  defp card_value(i) when is_integer(i) and i >= 2 and i <= 9, do: i
 
   @doc """
   Accepts a string and returns a tuple of cards. A card is a tuple of rank and suit.
