@@ -32,8 +32,10 @@ defmodule Poker do
     best_hand(hole_cards, parse_hand(community_cards))
   end
   def best_hand(hole_cards, community_cards) do
-    cards = Tuple.to_list(hole_cards) ++ Tuple.to_list(community_cards)
+    hole_cards = Tuple.to_list(hole_cards)
+    community_cards = Tuple.to_list(community_cards)
 
+    cards = hole_cards ++ community_cards
     hand = comb(5, cards)
     |> Enum.sort_by(fn cards ->
       cards |> List.to_tuple |> hand_value
@@ -148,6 +150,10 @@ defmodule Poker do
   end
 
   def hand_rank(hand) do
+    unless length(Tuple.to_list(hand)) == 5 do
+      raise ArgumentError, "Must pass 5 cards, got: #{inspect(hand)}"
+    end
+
     hand = sort_hand(hand)
 
     if is_straight(hand) do
