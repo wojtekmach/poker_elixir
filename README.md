@@ -2,7 +2,9 @@
 
 An Elixir library to work with Poker hands.
 
-Example:
+Documentation: http://hexdocs.pm/poker/
+
+## Example
 
 ```elixir
 hand1 = "As Ks Qs Js Ts"

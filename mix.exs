@@ -8,6 +8,11 @@ defmodule Poker.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps,
+     docs: fn ->
+       {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
+       [source_ref: ref, readme: "README.md", extras: ["README.md"], main: "readme"]
+     end,
+     description: "An Elixir library to work with Poker hands.",
      package: package,
    ]
   end
@@ -37,7 +42,6 @@ defmodule Poker.Mixfile do
 
   defp package do
     [
-      description: "An Elixir library to work with Poker hands.",
       licenses: ["MIT"],
       maintainers: ["Wojtek Mach"],
       links: %{"GitHub" => "https://github.com/wojtekmach/poker_elixir"},
