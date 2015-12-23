@@ -1,9 +1,13 @@
 defmodule Poker do
+  @moduledoc """
+  Provides poker-related functions.
+  """
+
   @doc """
   Returns the best rank & hand out of hole cards and community cards.
 
-  iex> Poker.best_hand("4c 5d", "3c 6c 7d Ad Ac")
-  {{:straight, :"7"}, {{:"7",:d}, {:"6",:c}, {:"5",:d}, {:"4",:c}, {:"3",:c}}}
+      iex> Poker.best_hand("4c 5d", "3c 6c 7d Ad Ac")
+      {{:straight, :"7"}, {{:"7",:d}, {:"6",:c}, {:"5",:d}, {:"4",:c}, {:"3",:c}}}
   """
   def best_hand(hole_cards, community_cards) when is_binary(hole_cards) do
     best_hand(parse_hand(hole_cards), community_cards)
@@ -34,8 +38,8 @@ defmodule Poker do
   @doc """
   Compares two poker hands and returns 1, 0 or -1 when the first hand is respectively more valuable, equally valuable or less valuable than the second hand.
 
-  iex> Poker.hand_compare("Ac Qd Ah As Kc", "Ac Ad Ah Kc Kc")
-  -1
+      iex> Poker.hand_compare("Ac Qd Ah As Kc", "Ac Ad Ah Kc Kc")
+      -1
   """
   def hand_compare(hand1, hand2) when is_binary(hand1) do
     hand_compare(parse_hand(hand1), hand2)
@@ -57,8 +61,8 @@ defmodule Poker do
   Returns hand value - a number than uniquely identifies a given hand.
   The bigger the number the more valuable a given hand is.
 
-  iex> Poker.hand_value("Ac Kc Qc Jc Tc")
-  8014
+      iex> Poker.hand_value("Ac Kc Qc Jc Tc")
+      8014
   """
   def hand_value(str) when is_binary(str) do
     str |> parse_hand |> hand_value
@@ -79,47 +83,49 @@ defmodule Poker do
   end
 
   @doc """
-  iex> Poker.hand_rank("Ac Kc Qc Jc Tc")
-  {:straight_flush, :A}
+  Returns rank of a given hand.
 
-  iex> Poker.hand_rank("Kc Qc Jc Tc 9c")
-  {:straight_flush, :K}
+      iex> Poker.hand_rank("Ac Kc Qc Jc Tc")
+      {:straight_flush, :A}
 
-  iex> Poker.hand_rank("5c 4c 3c 2c Ac")
-  {:straight_flush, :"5"}
+      iex> Poker.hand_rank("Kc Qc Jc Tc 9c")
+      {:straight_flush, :K}
 
-  iex> Poker.hand_rank("Ac Ad Ah As Kd")
-  {:four_of_a_kind, :A, :K}
+      iex> Poker.hand_rank("5c 4c 3c 2c Ac")
+      {:straight_flush, :"5"}
 
-  iex> Poker.hand_rank("Ac Ad Ah Kc Kd")
-  {:full_house, :A, :K}
+      iex> Poker.hand_rank("Ac Ad Ah As Kd")
+      {:four_of_a_kind, :A, :K}
 
-  iex> Poker.hand_rank("Kc Kd Kh Ac Ad")
-  {:full_house, :K, :A}
+      iex> Poker.hand_rank("Ac Ad Ah Kc Kd")
+      {:full_house, :A, :K}
 
-  iex> Poker.hand_rank("Ac Qc Jc Tc 9c")
-  {:flush, :c, :A, :Q, :J, :T, :"9"}
+      iex> Poker.hand_rank("Kc Kd Kh Ac Ad")
+      {:full_house, :K, :A}
 
-  iex> Poker.hand_rank("Ac Kc Qc Jc Td")
-  {:straight, :A}
+      iex> Poker.hand_rank("Ac Qc Jc Tc 9c")
+      {:flush, :c, :A, :Q, :J, :T, :"9"}
 
-  iex> Poker.hand_rank("Kc Qc Jc Tc 9d")
-  {:straight, :K}
+      iex> Poker.hand_rank("Ac Kc Qc Jc Td")
+      {:straight, :A}
 
-  iex> Poker.hand_rank("5c 4c 3c 2c Ad")
-  {:straight, :"5"}
+      iex> Poker.hand_rank("Kc Qc Jc Tc 9d")
+      {:straight, :K}
 
-  iex> Poker.hand_rank("Ac Ad Ah Kc Qc")
-  {:three_of_a_kind, :A, :K, :Q}
+      iex> Poker.hand_rank("5c 4c 3c 2c Ad")
+      {:straight, :"5"}
 
-  iex> Poker.hand_rank("Ac Ad Kc Kd Qc")
-  {:two_pair, :A, :K, :Q}
+      iex> Poker.hand_rank("Ac Ad Ah Kc Qc")
+      {:three_of_a_kind, :A, :K, :Q}
 
-  iex> Poker.hand_rank("Ac Ad Kc Qc Jd")
-  {:one_pair, :A, :K, :Q, :J}
+      iex> Poker.hand_rank("Ac Ad Kc Kd Qc")
+      {:two_pair, :A, :K, :Q}
 
-  iex> Poker.hand_rank("Ac Qc Jd Td 9c")
-  {:high_card, :A, :Q, :J, :T, :"9"}
+      iex> Poker.hand_rank("Ac Ad Kc Qc Jd")
+      {:one_pair, :A, :K, :Q, :J}
+
+      iex> Poker.hand_rank("Ac Qc Jd Td 9c")
+      {:high_card, :A, :Q, :J, :T, :"9"}
   """
   def hand_rank(str) when is_binary(str) do
     parse_hand(str) |> hand_rank
@@ -187,8 +193,8 @@ defmodule Poker do
   @doc """
   Accepts a string and returns a tuple of cards. A card is a tuple of rank and suit.
 
-  iex> Poker.parse_hand("Ac Kd")
-  {{:A, :c}, {:K, :d}}
+      iex> Poker.parse_hand("Ac Kd")
+      {{:A, :c}, {:K, :d}}
   """
   def parse_hand(str) do
     str
