@@ -23,7 +23,7 @@ defmodule Poker do
   Returns the best rank & hand out of hole cards and community cards.
 
       iex> Poker.best_hand("4c 5d", "3c 6c 7d Ad Ac")
-      {{:straight, :"7"}, {{:"7",:d}, {:"6",:c}, {:"5",:d}, {:"4",:c}, {:"3",:c}}}
+      {{:straight, 7}, {{7,:d}, {6,:c}, {5,:d}, {4,:c}, {3,:c}}}
   """
   def best_hand(hole_cards, community_cards) when is_binary(hole_cards) do
     best_hand(parse_hand(hole_cards), community_cards)
@@ -90,12 +90,12 @@ defmodule Poker do
     case hand_rank(hand) do
       {:straight_flush, a}        -> 8_000 + card_value(a)
       {:four_of_a_kind, _a, b}    -> 7_000 + card_value(b)
-      {:full_house, a, b}         -> 6_000  + 15 * card_value(a) + card_value(b)
-      {:flush, _r, a, b, c, d, e} -> 5_000  + card_value(a) + card_value(b) + card_value(c) + card_value(d) + card_value(e)
-      {:straight, a}              -> 4_000  + card_value(a)
-      {:three_of_a_kind, a, b, c} -> 3_000  + 15 * card_value(a) + card_value(b) + card_value(c)
-      {:two_pair, a, b, c}        -> 2_000  + 15 * card_value(a) + 15 * card_value(b) + card_value(c)
-      {:one_pair, a, b, c, d}     -> 1_000  + 15 * card_value(a) + card_value(b) + card_value(c) + card_value(d)
+      {:full_house, a, b}         -> 6_000 + 15 * card_value(a) + card_value(b)
+      {:flush, _r, a, b, c, d, e} -> 5_000 + card_value(a) + card_value(b) + card_value(c) + card_value(d) + card_value(e)
+      {:straight, a}              -> 4_000 + card_value(a)
+      {:three_of_a_kind, a, b, c} -> 3_000 + 15 * card_value(a) + card_value(b) + card_value(c)
+      {:two_pair, a, b, c}        -> 2_000 + 15 * card_value(a) + 15 * card_value(b) + card_value(c)
+      {:one_pair, a, b, c, d}     -> 1_000 + 15 * card_value(a) + card_value(b) + card_value(c) + card_value(d)
       {:high_card, a, b, c, d, e} -> card_value(a) + card_value(b) + card_value(c) + card_value(d) + card_value(e)
     end
   end
@@ -110,7 +110,7 @@ defmodule Poker do
       {:straight_flush, :K}
 
       iex> Poker.hand_rank("5c 4c 3c 2c Ac")
-      {:straight_flush, :"5"}
+      {:straight_flush, 5}
 
       iex> Poker.hand_rank("Ac Ad Ah As Kd")
       {:four_of_a_kind, :A, :K}
@@ -122,7 +122,7 @@ defmodule Poker do
       {:full_house, :K, :A}
 
       iex> Poker.hand_rank("Ac Qc Jc Tc 9c")
-      {:flush, :c, :A, :Q, :J, :T, :"9"}
+      {:flush, :c, :A, :Q, :J, :T, 9}
 
       iex> Poker.hand_rank("Ac Kc Qc Jc Td")
       {:straight, :A}
@@ -131,7 +131,7 @@ defmodule Poker do
       {:straight, :K}
 
       iex> Poker.hand_rank("5c 4c 3c 2c Ad")
-      {:straight, :"5"}
+      {:straight, 5}
 
       iex> Poker.hand_rank("Ac Ad Ah Kc Qc")
       {:three_of_a_kind, :A, :K, :Q}
@@ -143,7 +143,7 @@ defmodule Poker do
       {:one_pair, :A, :K, :Q, :J}
 
       iex> Poker.hand_rank("Ac Qc Jd Td 9c")
-      {:high_card, :A, :Q, :J, :T, :"9"}
+      {:high_card, :A, :Q, :J, :T, 9}
   """
   def hand_rank(str) when is_binary(str) do
     parse_hand(str) |> hand_rank
@@ -159,8 +159,8 @@ defmodule Poker do
     if is_straight(hand) do
       {{r1,_}, {r2,_}, _, _, _} = hand
 
-      if r1 == :A && r2 == :"5" do
-        r = :"5"
+      if r1 == :A && r2 == 5 do
+        r = 5
       else
         r = r1
       end
@@ -189,7 +189,7 @@ defmodule Poker do
   end
 
   defp is_straight({{a,_}, {b,_}, {c,_}, {d,_}, {e,_}}) do
-    (card_value(a) == card_value(b) + 1 || a == :A && b == :"5") &&
+    (card_value(a) == card_value(b) + 1 || a == :A && b == 5) &&
       card_value(b) == card_value(c) + 1 &&
       card_value(c) == card_value(d) + 1 &&
       card_value(d) == card_value(e) + 1
@@ -198,19 +198,19 @@ defmodule Poker do
   defp is_flush({{_,a},{_,a},{_,a},{_,a},{_,a}}), do: true
   defp is_flush({_,_,_,_,_}),                     do: false
 
-  defp card_value(:A),   do: 14
-  defp card_value(:K),   do: 13
-  defp card_value(:Q),   do: 12
-  defp card_value(:J),   do: 11
-  defp card_value(:T),   do: 10
-  defp card_value(:"9"), do: 9
-  defp card_value(:"8"), do: 8
-  defp card_value(:"7"), do: 7
-  defp card_value(:"6"), do: 6
-  defp card_value(:"5"), do: 5
-  defp card_value(:"4"), do: 4
-  defp card_value(:"3"), do: 3
-  defp card_value(:"2"), do: 2
+  defp card_value(:A), do: 14
+  defp card_value(:K), do: 13
+  defp card_value(:Q), do: 12
+  defp card_value(:J), do: 11
+  defp card_value(:T), do: 10
+  defp card_value(9),  do: 9
+  defp card_value(8),  do: 8
+  defp card_value(7),  do: 7
+  defp card_value(6),  do: 6
+  defp card_value(5),  do: 5
+  defp card_value(4),  do: 4
+  defp card_value(3),  do: 3
+  defp card_value(2),  do: 2
 
   @doc """
   Accepts a string and returns a tuple of cards. A card is a tuple of rank and suit.
@@ -226,9 +226,16 @@ defmodule Poker do
   end
 
   defp parse_card(str) do
-    [r, s] = String.codepoints(str)
-    {String.to_atom(r), String.to_atom(s)}
+    [rank, suit] = String.codepoints(str)
+    {parse_rank(rank), String.to_atom(suit)}
   end
+
+  defp parse_rank("A"), do: :A
+  defp parse_rank("K"), do: :K
+  defp parse_rank("Q"), do: :Q
+  defp parse_rank("J"), do: :J
+  defp parse_rank("T"), do: :T
+  defp parse_rank(str), do: String.to_integer(str)
 
   defp sort_hand(hand) do
     hand
