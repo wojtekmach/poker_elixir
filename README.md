@@ -18,21 +18,25 @@ Poker.hand_rank(hand1) # => {:straight_flush, :A}
 Poker.hand_rank(hand2) # => {:four_of_a_kind, :A, :K}
 
 Poker.hand_compare(hand1, hand2) # => 1
-  ```
+```
 
 ## Installation
 
-  1. Add poker to your list of dependencies in `mix.exs`:
+1. Add poker to your list of dependencies in `mix.exs`:
 
-        def deps do
-          [{:poker, "~> 0.0.1"}]
-        end
+```elixir
+def deps do
+  [{:poker, "~> 0.0.1"}]
+end
+```
 
-  2. Ensure poker is started before your application:
+2. Ensure poker is started before your application:
 
-        def application do
-          [applications: [:poker]]
-        end
+```elixir
+def application do
+  [applications: [:poker]]
+end
+```
 
 ## License
 
