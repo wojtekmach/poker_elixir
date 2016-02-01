@@ -17,7 +17,7 @@ hand2 = "Ac Ad Ah As Kc"
 Poker.hand_rank(hand1) # => {:straight_flush, :A}
 Poker.hand_rank(hand2) # => {:four_of_a_kind, :A, :K}
 
-Poker.hand_compare(hand1, hand2) # => 1
+Poker.hand_compare(hand1, hand2) # => :gt
 ```
 
 ## Installation

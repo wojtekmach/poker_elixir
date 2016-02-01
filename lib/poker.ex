@@ -15,7 +15,7 @@ defmodule Poker do
   Poker.hand_rank(hand1) # => {:straight_flush, :A}
   Poker.hand_rank(hand2) # => {:four_of_a_kind, :A, :K}
 
-  Poker.hand_compare(hand1, hand2) # => 1
+  Poker.hand_compare(hand1, hand2) # => :gt
   ```
   """
 
@@ -54,10 +54,10 @@ defmodule Poker do
   end
 
   @doc """
-  Compares two poker hands and returns 1, 0 or -1 when the first hand is respectively more valuable, equally valuable or less valuable than the second hand.
+  Compares two poker hands and returns :gt, :eq or :lt when the first hand is respectively more valuable, equally valuable or less valuable than the second hand.
 
       iex> Poker.hand_compare("Ac Qd Ah As Kc", "Ac Ad Ah Kc Kc")
-      -1
+      :lt
   """
   def hand_compare(hand1, hand2) when is_binary(hand1) do
     hand_compare(parse_hand(hand1), hand2)
@@ -69,9 +69,9 @@ defmodule Poker do
     r = hand_value(hand1) - hand_value(hand2)
 
     cond do
-      r > 0  -> 1
-      r == 0 -> 0
-      r < 0  -> -1
+      r > 0  -> :gt
+      r == 0 -> :eq
+      r < 0  -> :lt
     end
   end
 
