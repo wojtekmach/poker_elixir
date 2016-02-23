@@ -159,11 +159,12 @@ defmodule Poker do
     if is_straight(hand) do
       {{r1,_}, {r2,_}, _, _, _} = hand
 
-      if r1 == :A && r2 == 5 do
-        r = 5
-      else
-        r = r1
-      end
+      r =
+        if r1 == :A && r2 == 5 do
+          5
+        else
+          r1
+        end
 
       if is_flush(hand) do
         {:straight_flush, r}
