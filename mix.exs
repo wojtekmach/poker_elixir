@@ -1,7 +1,7 @@
 defmodule Poker.Mixfile do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.0-dev"
   @source_url "https://github.com/wojtekmach/poker_elixir"
 
   def project do
