@@ -2,19 +2,20 @@ defmodule Poker.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :poker,
-     version: "0.0.2",
-     elixir: "~> 1.1",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps,
-     docs: fn ->
-       {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
-       [source_ref: ref, readme: "README.md", main: "Poker"]
-     end,
-     description: "An Elixir library to work with Poker hands.",
-     package: package,
-   ]
+    [
+      app: :poker,
+      version: "0.0.2",
+      elixir: "~> 1.1",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps(),
+      docs: fn ->
+        {ref, 0} = System.cmd("git", ["rev-parse", "--verify", "--quiet", "HEAD"])
+        [source_ref: ref, readme: "README.md", main: "Poker"]
+      end,
+      description: "An Elixir library to work with Poker hands.",
+      package: package()
+    ]
   end
 
   # Configuration for the OTP application
@@ -35,8 +36,7 @@ defmodule Poker.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:markdown, github: "devinus/markdown", only: :dev},
-      {:ex_doc, "~> 0.11", only: :dev},
+      {:ex_doc, "~> 0.34", only: :dev}
     ]
   end
 
@@ -44,7 +44,7 @@ defmodule Poker.Mixfile do
     [
       licenses: ["MIT"],
       maintainers: ["Wojtek Mach"],
-      links: %{"GitHub" => "https://github.com/wojtekmach/poker_elixir"},
+      links: %{"GitHub" => "https://github.com/wojtekmach/poker_elixir"}
     ]
   end
 end
