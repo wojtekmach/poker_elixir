@@ -1,12 +1,10 @@
 # Poker
 
-[![Build Status](https://travis-ci.org/wojtekmach/poker_elixir.svg)](https://travis-ci.org/wojtekmach/poker_elixir)
-
 An Elixir library to work with Poker hands.
 
 Source: <https://github.com/wojtekmach/poker_elixir>
 
-Documentation: <http://hexdocs.pm/poker/>
+Documentation: <http://hexdocs.pm/poker>
 
 ## Example
 
