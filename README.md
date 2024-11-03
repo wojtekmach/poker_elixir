@@ -22,19 +22,11 @@ Poker.hand_compare(hand1, hand2) # => :gt
 
 ## Installation
 
-1. Add poker to your list of dependencies in `mix.exs`:
+Add poker to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [{:poker, "~> 0.0.1"}]
-end
-```
-
-2. Ensure poker is started before your application:
-
-```elixir
-def application do
-  [applications: [:poker]]
 end
 ```
 
